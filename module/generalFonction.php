@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /**
  * Connexion avec la bdd avec pdo
  */
@@ -184,10 +184,16 @@ function get_lien_img( $id_categorie ):String{
     $sql->closeCursor();
 }
 
+/**
+ * Listes des commandes d'une catégorie
+ *
+ * @param integer $id_categorie
+ * @return array
+ */
 function get_all_cmd( int $id_categorie ):array{
     global $connexion;
     $sql = $connexion->prepare(
-        'SELECT rolecmd, commande FROM cmd WHERE id_categorie_cmd = :id'
+        'SELECT rolecmd, commande, details FROM cmd WHERE id_categorie_cmd = :id'
     );
     $sql->execute(
         array(
@@ -202,3 +208,21 @@ function get_all_cmd( int $id_categorie ):array{
     $sql->closeCursor();
 }
 
+/**
+ * Ensemble des catégorie
+ *
+ * @return array
+ */
+function get_cmd():array{
+    global $connexion;
+    $sql = $connexion->prepare(
+        'SELECT id, categorie FROM listescmd'
+    );
+    $sql->execute();
+    $ans = $sql->fetchAll();
+    if( $ans != null )
+        return $ans;
+    else
+        return array();
+    $sql->closeCursor();
+}

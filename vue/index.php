@@ -18,7 +18,25 @@ require_once('../module/generalFonction.php');
       <?php include_once('menu.php'); ?>
     </div>
     <div class="row">
-      <?php include_once('commande.php'); ?>
+      <?php 
+      if( $_REQUEST['pg'] == 'commandes' ){
+        include_once('commande.php'); 
+      }else if( $_REQUEST['pg'] == 'accueil' ){
+        include_once('accueil.php'); 
+      }
+      else if( $_REQUEST['pg'] == 'admin' ){
+        include_once('admin/index.php'); 
+      }
+      else if( $_REQUEST['pg'] == md5('addcmd') ){
+        include_once('admin/addcmd.php'); 
+      }
+      else if( $_REQUEST['pg'] == md5('categoriecmd') ){
+        include_once('admin/categoriecmd.php'); 
+      }
+      else{
+        include_once('accueil.php');
+      }
+      ?>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
