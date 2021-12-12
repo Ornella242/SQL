@@ -37,11 +37,10 @@ function text_maj( string $text_min ):string{
 /**
  * Insertion dans la table listecmd
  *
- * @param String $categorie
- * @param String $details
+ * @param array $array
  * @return void
  */
-function updateListe( String $categorie, String $details ){
+function insertionListe( array $array ):int{
     global $connexion;
     $sql = $connexion->prepare(
         'INSERT INTO listescmd(
@@ -50,26 +49,22 @@ function updateListe( String $categorie, String $details ){
             :id, :categorie, :details
         )'
     );
-    $sql->execute(
-        array(
-            'id'        => NULL,
-            'categorie' => $categorie,
-            'details'   => $details
-        )
-    );
+    try {
+        $sql->execute($array);
+        return $connexion->lastInsertId();
+    } catch (\Throwable $th) {
+        return -1;
+    }
     $sql->closeCursor();
 }
 
 /**
  * Insertion dans la table cmd
  *
- * @param integer $id_categorie
- * @param String $roleCmd
- * @param String $cmd
- * @param String $details
+ * @param array $array
  * @return void
  */
-function updateCmd( int $id_categorie, String $roleCmd, String $cmd, String $details ){
+function insertionCmd( array $array ){
     global $connexion;
     $sql = $connexion->prepare(
         'INSERT INTO cmd(
@@ -78,15 +73,85 @@ function updateCmd( int $id_categorie, String $roleCmd, String $cmd, String $det
             :id, :id_categorie, :rolecmd, :cmd, :details
         )'
     );
-    $sql->execute(
-        array(
-            'id'            => NULL,
-            'id_categorie'  => $id_categorie,
-            'rolecmd'       => $roleCmd,
-            'cmd'           => $cmd,
-            'details'       => $details
-        )
+    try {
+        $sql->execute($array);
+        return $connexion->lastInsertId();
+    } catch (\Throwable $th) {
+        return -1;
+    }
+    $sql->closeCursor();
+}
+
+/**
+ * Mise à jour d'une commande
+ *
+ * @param array $array
+ * @param integer $idcmd
+ * @return integer
+ */
+function updateCmd( array $array, int $idcmd ):int{
+    global $connexion;
+    $sql = $connexion->prepare(
+        'UPDATE cmd SET 
+            id_categorie_cmd    = :id_categorie,
+            rolecmd             = :rolecmd,
+            commande            = :cmd,
+            details             = :details
+        WHERE id                = '.$idcmd
     );
+    try {
+        $sql->execute($array);
+        return 1;
+    } catch (\Throwable $th) {
+        return -1;
+    }
+    $sql->closeCursor();
+}
+
+/**
+ * Update catégorie commande
+ *
+ * @param array $array
+ * @param integer $idcmd
+ * @return integer
+ */
+function updateCategorie( array $array, int $idcmd ):int{
+    global $connexion;
+    $sql = $connexion->prepare(
+        'UPDATE listescmd SET 
+            categorie   = :categorie,
+            details     = :details
+        WHERE id        = '.$idcmd
+    );
+    try {
+        $sql->execute($array);
+        return 1;
+    } catch (\Throwable $th) {
+        return -1;
+    }
+    $sql->closeCursor();
+}
+
+/**
+ * Suppression d'une commande
+ *
+ * @param integer $idcmd
+ * @return boolean
+ */
+function deleteCmd( int $idcmd ):bool{
+    global $connexion;
+    $sql = $connexion->prepare('DELETE FROM cmd WHERE id = :idcmd');
+    try {
+        $sql->execute(
+            array(
+                'idcmd'=> $idcmd
+            )
+        );
+
+        return true;
+    } catch (\Throwable $th) {
+        return false;
+    }
     $sql->closeCursor();
 }
 
@@ -94,12 +159,12 @@ function updateCmd( int $id_categorie, String $roleCmd, String $cmd, String $det
  * Récupérer une catégorie
  *
  * @param integer $id_categorie
- * @return String
+ * @return array
  */
-function get_categorie( int $id_categorie ):String{
+function get_line_categorie( int $id_categorie ):array{
     global $connexion;
     $sql = $connexion->prepare(
-        'SELECT categorie FROM listescmd WHERE id = :id'
+        'SELECT * FROM listescmd WHERE id = :id'
     );
     $sql->execute(
         array(
@@ -107,11 +172,25 @@ function get_categorie( int $id_categorie ):String{
         )
     );
     $ans = $sql->fetch();
+    if($ans != null)
+        return $ans;
+    else
+        return array();
+    $sql->closeCursor();
+}
+
+/**
+ * Récupérer le nom d'une catégorie
+ *
+ * @param integer $id_categorie
+ * @return String
+ */
+function get_categorie( int $id_categorie ):String{
+    $ans = get_line_categorie( $id_categorie );
     if($ans != '')
         return $ans['categorie'];
     else
         return '';
-    $sql->closeCursor();
 }
 
 /**
@@ -121,21 +200,12 @@ function get_categorie( int $id_categorie ):String{
  * @return array
  */
 function detailsListe( int $id_categorie ):array{
-    global $connexion;
-    $sql = $connexion->prepare(
-        'SELECT details FROM listescmd WHERE id = :id'
-    );
-    $sql->execute(
-        array(
-            'id'    => $id_categorie
-        )
-    );
-    $ans = unserialize($sql->fetch()['details']);
+    $val = get_line_categorie( $id_categorie );
+    $ans = unserialize($val['details']);
     if($ans != null)
         return $ans;
     else
         return array();
-    $sql->closeCursor();
 }
 
 /**
@@ -193,7 +263,7 @@ function get_lien_img( $id_categorie ):String{
 function get_all_cmd( int $id_categorie ):array{
     global $connexion;
     $sql = $connexion->prepare(
-        'SELECT rolecmd, commande, details FROM cmd WHERE id_categorie_cmd = :id'
+        'SELECT id,rolecmd, commande, details FROM cmd WHERE id_categorie_cmd = :id'
     );
     $sql->execute(
         array(
@@ -207,6 +277,25 @@ function get_all_cmd( int $id_categorie ):array{
         return array();
     $sql->closeCursor();
 }
+
+function get_line_cmd( int $idcmd ):array{
+    global $connexion;
+    $sql = $connexion->prepare(
+        'SELECT id, id_categorie_cmd, rolecmd, commande, details FROM cmd WHERE id = :id'
+    );
+    $sql->execute(
+        array(
+            'id'    => $idcmd
+        )
+    );
+    $ans = $sql->fetch();
+    if($ans != null)
+        return $ans;
+    else
+        return array();
+    $sql->closeCursor();
+}
+
 
 /**
  * Ensemble des catégorie

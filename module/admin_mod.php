@@ -28,13 +28,14 @@ function clean_pass( $pass ): string{
 
 function admin(String $email, $pass): int{
     global $conDistant;
-    $admin = $conDistant->prepare('SELECT id_author FROM inscris WHERE email_author = :email AND password_author = :pass AND (id_niveau = :id_niv1 OR id_niveau = :id_niv2)');
+    $admin = $conDistant->prepare('SELECT id_author FROM inscris WHERE email_author = :email AND password_author = :pass AND (id_niveau = :id_niv1 OR id_niveau = :id_niv2) AND tmp = :tmp');
     $admin->execute(
         array(
             'email'     => $email,
             'pass'      => $pass,
-            'id_niv1' => 1,
-            'id_niv2' => 2
+            'id_niv1'   => 1,
+            'id_niv2'   => 2,
+            'tmp'       => -1
         )
     );
     $id = $admin->fetch();
