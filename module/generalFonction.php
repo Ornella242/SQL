@@ -37,11 +37,10 @@ function text_maj( string $text_min ):string{
 /**
  * Insertion dans la table listecmd
  *
- * @param String $categorie
- * @param String $details
+ * @param array $array
  * @return void
  */
-function updateListe( String $categorie, String $details ){
+function updateListe( array $array ):int{
     global $connexion;
     $sql = $connexion->prepare(
         'INSERT INTO listescmd(
@@ -50,26 +49,23 @@ function updateListe( String $categorie, String $details ){
             :id, :categorie, :details
         )'
     );
-    $sql->execute(
-        array(
-            'id'        => NULL,
-            'categorie' => $categorie,
-            'details'   => $details
-        )
-    );
+    try {
+        $sql->execute($array);
+        return $connexion->lastInsertId();
+    } catch (\Throwable $th) {
+        //throw $th;
+        return -1;
+    }
     $sql->closeCursor();
 }
 
 /**
  * Insertion dans la table cmd
  *
- * @param integer $id_categorie
- * @param String $roleCmd
- * @param String $cmd
- * @param String $details
+ * @param array $array
  * @return void
  */
-function updateCmd( int $id_categorie, String $roleCmd, String $cmd, String $details ){
+function updateCmd( array $array ){
     global $connexion;
     $sql = $connexion->prepare(
         'INSERT INTO cmd(
@@ -79,13 +75,7 @@ function updateCmd( int $id_categorie, String $roleCmd, String $cmd, String $det
         )'
     );
     $sql->execute(
-        array(
-            'id'            => NULL,
-            'id_categorie'  => $id_categorie,
-            'rolecmd'       => $roleCmd,
-            'cmd'           => $cmd,
-            'details'       => $details
-        )
+        $array
     );
     $sql->closeCursor();
 }
