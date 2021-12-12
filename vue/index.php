@@ -11,13 +11,13 @@ require_once('../module/generalFonction.php');
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Commandes</title>
+    <title>CMD</title>
   </head>
   <body>
     <div>
       <?php include_once('menu.php'); ?>
     </div>
-    <div class="row">
+    <div>
       <?php 
       if(!isset( $_REQUEST['pg'] )){
         include_once('accueil.php'); 
@@ -36,10 +36,18 @@ require_once('../module/generalFonction.php');
         else if( $_REQUEST['pg'] == md5('categoriecmd') ){
           include_once('admin/categoriecmd.php'); 
         }
+        else if( $_REQUEST['pg'] == md5('about') ){
+          include_once('about.php'); 
+        }
         else{
           include_once('accueil.php');
         }
       }
+      ?>
+    </div>
+    <div>
+      <?php
+        include_once('footer.php')
       ?>
     </div>
     <!-- Optional JavaScript -->
