@@ -58,7 +58,7 @@ if (isset($_REQUEST[md5('id_categorie')])) {
                         foreach (get_all_cmd($id_cate) as $key => $value) {
                         ?>
                             <li class="fst-italic fw-bolder"><?= stripslashes($value['rolecmd']) ?><?php if (isset($_SESSION['id_user']) && !empty($_SESSION['id_user'])) { ?> <a href="index.php?pg=<?= md5('addcmd') ?>&<?= md5('idcmd') ?>=<?= $value['id'] ?>"><button class="btn btn-outline-primary">Modifier</button></a> <a href="../module/delete.php?<?= md5('idcmd') ?>=<?= $value['id'] ?>&<?= md5('idParent') ?>=<?= $id_cate ?>"><button class="btn btn-outline-danger">Delete</button></a> <?php }  ?></li>
-                            <div class="p-3 mb-2 bg-secondary text-white rounded-pill" id="<?= $value['rolecmd'] ?>"><?= stripslashes($value['commande']) ?></div>
+                            <div class="p-3 mb-2 bg-secondary text-white rounded" id="<?= $value['rolecmd'] ?>"><?= stripslashes($value['commande']) ?></div>
 
                             <?php
                             if ($value['details'] != NULL) {

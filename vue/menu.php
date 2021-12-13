@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar" href="index.php?pg=accueil" id="title" style="font-weight:bold; text-shadow:1px 1px 1px black; font-size:30px; text-decoration: underline;">CMD</a>
+  <a class="navbar" href="index.php?pg=accueil" id="title" style="font-weight:bold; text-shadow:1px 1px 1px black; font-size:30px; color:black;">Commandes</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
