@@ -14,7 +14,7 @@ if (isset($_REQUEST[md5('id_categorie')])) {
         ?>
         <div class="row">
             <div class="col-sm-4">
-                <div class="list-group " id="list-tab" role="tablist" style="margin-top:90px; margin-left: 5px">
+                <div class="list-group " id="list-tab" role="tablist" style=" margin-left: 5px">
                     <a class="list-group-item list-group-item-action p-3 mb-2 bg-secondary text-white" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">CMD</a>
                     <?php
                     foreach (get_all_cmd($id_cate) as $key => $value) {
@@ -25,7 +25,7 @@ if (isset($_REQUEST[md5('id_categorie')])) {
                     ?>
                 </div>
             </div>
-            <div class="col-sm-8 " style="margin-top:120px;">
+            <div class="col-sm-8">
                 <h1 style=" text-shadow:1px 1px 1px black; "> <?= text_maj(get_categorie($id_cate)); ?> </h1>
                 <?php
                 if (get_lien_img($id_cate) != null) {
@@ -36,7 +36,7 @@ if (isset($_REQUEST[md5('id_categorie')])) {
 
                 if (get_mean_cmd($id_cate) != '') {
                 ?>
-                    <h2 style="text-decoration: underline;" class="pt-4">Que signifie le langage SQL?</h2>
+                    <h2 style="text-decoration: underline;" class="pt-4">Que signifie le langage <?= text_min(get_categorie($id_cate)); ?>?</h2>
                     <p>
                         <?= stripslashes(nl2br(get_mean_cmd($id_cate))); ?>
                     </p>
@@ -44,14 +44,14 @@ if (isset($_REQUEST[md5('id_categorie')])) {
                 }
                 if (get_why_cmd($id_cate) != '') {
                 ?>
-                    <h2 style="text-decoration: underline;">Pourquoi coder en SQL ?</h2>
+                    <h2 style="text-decoration: underline;">Pourquoi coder en <?= text_min(get_categorie($id_cate)); ?> ?</h2>
                     <p>
                         <?= stripslashes(nl2br(get_why_cmd($id_cate))); ?>
                     </p>
                 <?php
                 }
                 ?>
-                <h3 style="text-decoration: underline;">Les Commandes SQL</h3>
+                <h3 style="text-decoration: underline;">Les Commandes <?= text_min(get_categorie($id_cate)); ?></h3>
                 <ul>
                     <ol>
                         <?php
