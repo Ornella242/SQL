@@ -19,7 +19,7 @@ if (isset($_REQUEST[md5('id_categorie')])) {
                     <?php
                     foreach (get_all_cmd($id_cate) as $key => $value) {
                     ?>
-                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#<?= $value['rolecmd'] ?>" role="tab" aria-controls="list-profile"><?= $value['rolecmd'] ?></a>
+                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#<?= $value['rolecmd'] ?>" role="tab" aria-controls="list-profile"><?= stripslashes($value['rolecmd']) ?></a>
                     <?php
                     }
                     ?>
@@ -59,7 +59,6 @@ if (isset($_REQUEST[md5('id_categorie')])) {
                         ?>
                             <li class="fst-italic fw-bolder"><?= stripslashes($value['rolecmd']) ?><?php if (isset($_SESSION['id_user']) && !empty($_SESSION['id_user'])) { ?> <a href="index.php?pg=<?= md5('addcmd') ?>&<?= md5('idcmd') ?>=<?= $value['id'] ?>"><button class="btn btn-outline-primary">Modifier</button></a> <a href="../module/delete.php?<?= md5('idcmd') ?>=<?= $value['id'] ?>&<?= md5('idParent') ?>=<?= $id_cate ?>"><button class="btn btn-outline-danger">Delete</button></a> <?php }  ?></li>
                             <div class="p-3 mb-2 bg-secondary text-white rounded" id="<?= $value['rolecmd'] ?>"><?= stripslashes($value['commande']) ?></div>
-
                             <?php
                             if ($value['details'] != NULL) {
                             ?>
@@ -68,28 +67,28 @@ if (isset($_REQUEST[md5('id_categorie')])) {
                                     $details = unserialize($value['details']);
                                     if ($details['details1'] != '') {
                                     ?>
-                                        <li><?= nl2br($details['details1']) ?></li>
+                                        <li><?= stripslashes(nl2br($details['details1'])) ?></li>
                                     <?php
                                     }
                                     if ($details['details2'] != '') {
                                     ?>
-                                        <li><?= nl2br($details['details2']) ?></li>
+                                        <li><?= stripslashes(nl2br($details['details2'])) ?></li>
                                     <?php
                                     }
                                     if ($details['details3'] != '') {
                                     ?>
-                                        <li><?= nl2br($details['details3']) ?></li>
+                                        <li><?= stripslashes(nl2br($details['details3'])) ?></li>
+                                    <?php
+                                    }
+                                    ?>
                                 </ul>
                             <?php
-                                    }
-                            ?>
-                </ul>
-        <?php
                             }
-                        }
-        ?>
-        </ol>
-        </ul>
+                            ?>
+
+                        <?php } ?>
+                    </ol>
+                </ul>
             </div>
         </div>
     </div>

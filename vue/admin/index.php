@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-5 pt-4">
             <div class="h_blog_img pt-5">
-                <img class="img-fluid" src="../images/cmd.png" alt="Image" />
+                <img class="img-fluid" src="../images/cmd.jpg" alt="Image" />
             </div>
         </div>
         <div class="col-sm-1"></div>
