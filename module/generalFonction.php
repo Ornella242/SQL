@@ -34,6 +34,16 @@ function text_maj( string $text_min ):string{
     return strtoupper($text_min);
 }
 
+  /**
+ * Mettre en minuscule une chaine de caractère
+ *
+ * @param string $text_min
+ * @return string
+ */
+function text_min( string $text_min ):string{
+    return strtolower($text_min);
+}
+
 /**
  * Insertion dans la table listecmd
  *
