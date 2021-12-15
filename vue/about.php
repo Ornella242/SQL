@@ -29,19 +29,16 @@
           <div class="col-lg-6 border border-secondary" style="padding: 50px;">
             <div class="h_blog_text">
               <div class="h_blog_text_inner left right">
-                <h4>Bienvenu sur <strong style="color: yellow;">Plus</strong><strong  style="color: blue;">BG</strong></h4>
+                <h4>Bienvenu dans l'univers des<strong style="color: black;"> commandes</strong></h4>
                 <p>
-                <strong style="color: yellow;">Plus</strong><strong  style="color: blue;">BG</strong> est un site web qui permet de connaitre le plus beau et la plus belle de la saison à travers des votes.
-                  Chaque votant, vote deux fois soit une fois pour une fille et une fois pour un garçon. 
+                  Nous avons conçu ce site dans le but d'aider les étudiants ou toute autre personne qui voudrait manipuler les Commandes <strong style="color: black;">SQL, GIT, SYMFONY, CISCO</strong> et qui ne maîtrise pas les syntaxes ou quelle commande utilisée et à quel moment.
+                  Ce site vous permet d'avoir en clair les syntaxes et définitions des commandes que vous recherchez.
+                  
                 </p>
                 <p>
-                   Quelqu'un qui voudrait participer au cours du <strong style="color: yellow;">Plus</strong><strong  style="color: blue;">BG</strong> remplira un formulaire. Si il remplit les conditions de participation, il verra son nom dans la liste des candidats et candidates. <br>
-                   Cliquer sur participer pour être le prochain <strong style="color: yellow;">Plus</strong><strong  style="color: blue;">BG</strong> de la saison.
+                   Besoin d'éclaircissement par rapport à l'une ou l'autre de ces commandes? Rejoignez nous sur l'onglet Questions de notre site  <a href="http://wecan2021.000webhostapp.com/controler/index.php?pg=5494af1f14a8c19939968c3e9e2d4f79" class="text-reset">WE CAN</a>
                 </p>
-                <a class="primary-btn" href="participer.php">
-                  Participer <i class="ti-arrow-right ml-1"></i>
-                </a>
-                <h6>Merci pour le passage<i class="ti-heart" aria-hidden="true"></i></h6>
+                
               </div>
             </div>
           </div>
