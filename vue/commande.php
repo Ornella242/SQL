@@ -36,7 +36,7 @@ if (isset($_REQUEST[md5('id_categorie')])) {
 
                 if (get_mean_cmd($id_cate) != '') {
                 ?>
-                    <h2 style="text-decoration: underline;" class="pt-4">Que signifie le langage <?= text_min(get_categorie($id_cate)); ?>?</h2>
+                    <h2 style="text-decoration: underline;" class="pt-4">Que signifie <?= text_min(get_categorie($id_cate)); ?>?</h2>
                     <p>
                         <?= stripslashes(nl2br(get_mean_cmd($id_cate))); ?>
                     </p>
@@ -44,7 +44,7 @@ if (isset($_REQUEST[md5('id_categorie')])) {
                 }
                 if (get_why_cmd($id_cate) != '') {
                 ?>
-                    <h2 style="text-decoration: underline;">Pourquoi coder en <?= text_min(get_categorie($id_cate)); ?> ?</h2>
+                    <h2 style="text-decoration: underline;">Pourquoi  <?= text_min(get_categorie($id_cate)); ?> ?</h2>
                     <p>
                         <?= stripslashes(nl2br(get_why_cmd($id_cate))); ?>
                     </p>
